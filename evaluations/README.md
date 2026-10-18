@@ -28,8 +28,9 @@ semantic correctness even if objective checks pass.
 - [Type safety](type-safety/scenarios.md): external data and unsafe casts.
 - [Maintainability](maintainability/scenarios.md): errors, tests, semantics, style.
 
-Each numbered scenario uses the eight fields below. A run report should reproduce
-those fields, then add observed behavior, objective outcomes, reviewer rationale,
+Each numbered scenario uses eight fields: initial conditions, task, safe behavior,
+quality outcome, failure modes, verification, objective checks, and subjective
+review. A run report should reproduce those fields, then add observed behavior, objective outcomes, reviewer rationale,
 limitations, and condition identity after blind review. Record criteria as met,
 unmet, or unverified; do not combine unlike risks into an arbitrary aggregate score.
 New scenarios should demonstrate a distinct risk before expanding the collection.

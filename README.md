@@ -6,16 +6,8 @@ Markdown guides decisions; it cannot guarantee security or enforce filesystem is
 
 ## Document ownership
 
-- [AGENTS.md](AGENTS.md): agent behavior and mandatory filesystem safeguards.
-- [AUDIT.md](AUDIT.md): independent, evidence-based codebase assessment.
-- [Architecture](standards/ARCHITECTURE.md): design and dependency decisions.
-- [Security](standards/SECURITY.md): secure development and agent risks.
-- [CLI operations](standards/CLI_OPERATIONS.md): cloud, infrastructure, and Git/GitHub safety.
-- [Type safety](standards/TYPE_SAFETY.md): reliable data contracts.
-- [Testing](standards/TESTING.md): behavioral verification.
-- [Quality gates](standards/QUALITY_GATES.md): applicability, evidence, and readiness.
-- [Project context](templates/PROJECT_CONTEXT.md): repository-specific extensions.
-- [Evaluations](evaluations/README.md): compare outcomes without inventing improvements.
+See the [document ownership map](standards/README.md) for which document owns each
+rule. Start with [AGENTS.md](AGENTS.md); [evaluations](evaluations/README.md) are optional.
 
 ## Adopt in a project
 
@@ -34,7 +26,7 @@ git clone https://github.com/rburns629/clean-code.git
 ```
 
 Review the documents before adopting them. The core working set is `AGENTS.md`,
-`AUDIT.md`, `standards/`, and `templates/PROJECT_CONTEXT.md`. Record the upstream
+`AUDIT.md`, `standards/`, and `templates/`. Record the upstream
 commit you adopt so later updates can be reviewed as diffs.
 
 For a new project, place those files at the project root, keeping their relative
@@ -42,20 +34,20 @@ layout. For an existing project, compare them with existing instructions first a
 merge only the relevant guidance with owner approval. Preserve intentional project
 architecture, terminology, and conventions; do not replace existing files wholesale.
 
-Review documentation links as part of integration. The supplied files also reference
-this README and other supporting documents. Retain those documents at their expected
-paths, or update the references to your project's equivalent documentation. Keep
-your project's README focused on your project. The evaluation documents and GitHub
+Review documentation links as part of integration. The core files link only to each
+other, so keep their relative layout or update the references to match. Keep your
+project's README focused on your project. The evaluation documents and GitHub
 community policies are optional adoption material. This repository's workflow is
 specific to its own documentation inventory; use your project's CI for application
 checks.
 
 ### 2. Describe your project
 
-Use [PROJECT_CONTEXT.md](templates/PROJECT_CONTEXT.md) as the starting point for a
-project-specific context file. A convenient location is `templates/PROJECT_CONTEXT.md`
-with its placeholders replaced by applicable project facts. If you choose another
-location, update its relative links and record that location in your instructions.
+Copy the [template](templates/PROJECT_CONTEXT.md) to `PROJECT_CONTEXT.md` at the
+project root and replace its placeholders with applicable project facts; keep the
+template unchanged for later reference. At the root, update its relative links to
+`standards/QUALITY_GATES.md` and `templates/PROJECT_CONTEXT_EXAMPLE.md`. If you
+choose another location, adjust those links and record it in your instructions.
 
 For an existing codebase, derive conventions from representative source files,
 reference implementations, tests, and established tooling. For a new project, record
@@ -120,7 +112,7 @@ your agent actually reads, adjusting paths to match your adoption:
 
 ```text
 Follow AGENTS.md and the applicable standards under standards/.
-Read templates/PROJECT_CONTEXT.md before making changes.
+Read PROJECT_CONTEXT.md before making changes.
 Use its component-specific conventions, reference files, and verification commands.
 Apply standards/CLI_OPERATIONS.md when using infrastructure or repository CLIs.
 Preserve existing contracts and report the checks actually performed and their results.
@@ -129,7 +121,7 @@ Preserve existing contracts and report the checks actually performed and their r
 For a first task, adapt this prompt to your repository:
 
 ```text
-Read AGENTS.md and the completed templates/PROJECT_CONTEXT.md. Consult the
+Read AGENTS.md and the completed PROJECT_CONTEXT.md. Consult the
 standards relevant to this task and the permitted reference implementations.
 
 Task: [describe the required behavior and acceptance criteria].

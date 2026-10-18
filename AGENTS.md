@@ -89,7 +89,7 @@ When delegating to another agent or model, including nested delegation:
 
 ## Implementation and evidence
 
-Consult the relevant [standards](README.md#document-ownership), keeping detailed rules
+Consult the relevant [standards](standards/README.md), keeping detailed rules
 in their owning documents. Use the [context template](templates/PROJECT_CONTEXT.md)
 for project-specific facts. Make the smallest coherent change meeting the request.
 Use [quality gates](standards/QUALITY_GATES.md) to report actual verification,

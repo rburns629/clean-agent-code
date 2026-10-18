@@ -1,6 +1,6 @@
 # Independent engineering audit
 
-Evaluate actual behavior and evidence against the [standards](README.md#document-ownership)
+Evaluate actual behavior and evidence against the [standards](standards/README.md)
 and the consuming project's context. Following instructions is not proof of quality.
 Apply [agent access safeguards](AGENTS.md#mandatory-filesystem-safety) throughout.
 An audit authorizes observation, not remediation, execution of untrusted code, secret
@@ -114,12 +114,12 @@ Scope: a task-read endpoint and its JSON adapter at fictional revision `example-
 rubric version 2. Source review confirmed missing resource authorization and unchecked
 external data. No tests were executed. Other modules and deployment were not audited.
 
-| Category | Score (0–100) or status | Evidence and rationale | Confidence / coverage |
-| --- | --- | --- | --- |
-| Security | 0 | F-01: source path returns another user's task without a resource permission check; synthetic reproduction confirms the bypass | High for this endpoint; other endpoints unassessed |
-| Type safety and data contracts | 40 | F-02: external JSON is cast to a trusted model without validation | High from adapter review; other boundaries unassessed |
-| Testing and verification | Unassessed | No test suite was inspected or executed | No basis for a quality score |
-| Performance and operations | Unassessed | No workload or operational evidence available | No performance claim |
+| Category | Score (0–100) or status | Scope and evidence | Findings / rationale | Confidence and gaps |
+| --- | --- | --- | --- | --- |
+| Security | 0 | Task-read endpoint source review and synthetic reproduction | F-01: returns another user's task without a resource permission check; confirmed critical defect | High for this endpoint; other endpoints unassessed |
+| Type safety and data contracts | 60 | JSON adapter source review | F-02: external JSON is cast to a trusted model without validation; one confirmed moderate defect, so the 60–79 band's lower bound | High from adapter review; other boundaries unassessed |
+| Testing and verification | Unassessed | No test suite inspected or executed | No basis for a quality score | Test quality and execution unknown |
+| Performance and operations | Unassessed | No workload or operational evidence available | No performance claim | Requirements and measurements unavailable |
 
 A complete report includes every scorecard category; this excerpt shows selected rows.
 The synthetic reproduction in F-01 is a manual exercise, not an executed automated test.

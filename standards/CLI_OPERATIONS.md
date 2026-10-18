@@ -133,8 +133,8 @@ or assume push authorization also permits a merge, release, or workflow dispatch
 ## Verification and reference documentation
 
 Review actual command arguments and targets, authorization records, sanitized results,
-and recovery evidence. Evaluate judgment through the
-[CLI scenario](../evaluations/security/scenarios.md#4-cli-targets-secrets-and-remote-changes).
+and recovery evidence. Where the optional evaluations are adopted, evaluate judgment
+through the CLI scenario in `evaluations/security/scenarios.md`.
 Technical enforcement requires sandbox, IAM, filesystem, and review controls beyond
 these instructions. Consult installed-version documentation; these references explain
 specific behaviors, not a universal safe-command allowlist:

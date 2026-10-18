@@ -26,7 +26,7 @@ jobs:
           from urllib.parse import unquote, urlsplit
 
           root = Path.cwd().resolve()
-          required = """README.md AGENTS.md AUDIT.md
+          required = """README.md AGENTS.md AUDIT.md standards/README.md
           standards/ARCHITECTURE.md standards/SECURITY.md standards/CLI_OPERATIONS.md standards/TYPE_SAFETY.md
           standards/TESTING.md standards/QUALITY_GATES.md templates/PROJECT_CONTEXT.md
           templates/PROJECT_CONTEXT_EXAMPLE.md

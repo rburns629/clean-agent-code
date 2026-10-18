@@ -1,6 +1,6 @@
 # Contributing
 
-Read [document ownership](../README.md#document-ownership) and the relevant standard
+Read [document ownership](../standards/README.md) and the relevant standard
 before proposing a change. Follow [filesystem safeguards](../AGENTS.md#mandatory-filesystem-safety).
 
 Propose a standard with a concrete problem, affected projects, expected behavior,
