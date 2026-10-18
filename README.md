@@ -39,6 +39,4 @@ in consuming repositories. Configure their CI separately using
 See [contributing](.github/CONTRIBUTING.md) and the
 [security reporting policy](.github/SECURITY.md). No evaluation results are claimed.
 The reporting channel must be configured by the owner before public security intake.
-No license has been assigned. MIT is a candidate for owner review; the owner must
-approve licensing terms and copyright attribution before adding LICENSE or making
-open-source licensing claims.
+Licensed under the MIT License. See `LICENSE` for the full terms.
