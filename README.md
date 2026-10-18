@@ -1,4 +1,4 @@
-# clean-code
+# Clean Code
 
 Practical engineering standards for repository-aware coding agents and their reviewers.
 The goal is reliable software within each project's context, with evidence of quality.
@@ -203,6 +203,11 @@ Do not modify files or inspect protected contents. Run only safe, authorized che
 Report findings with locations, evidence, impact, confidence, and focused remedies.
 Separate confirmed defects from suspected risks and list verification limitations.
 ```
+
+Audit reports include evidence-based 0–100 category scores in Markdown tables, finding
+priorities, and concrete change examples where useful. Unassessed areas stay explicit;
+there is no repository-wide average that could hide a critical weakness. See the
+[scoring rubric and report examples](AUDIT.md#numerical-scoring-rubric).
 
 Review findings before authorizing remediation. An audit does not authorize file
 changes, secret inspection, untrusted script execution, or production access.
