@@ -1,0 +1,94 @@
+name: Validate documentation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  documentation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check documentation
+        shell: bash
+        run: |
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          import re
+          from urllib.parse import unquote, urlsplit
+
+          root = Path.cwd().resolve()
+          required = """README.md AGENTS.md AUDIT.md
+          standards/ARCHITECTURE.md standards/SECURITY.md standards/TYPE_SAFETY.md
+          standards/TESTING.md standards/QUALITY_GATES.md templates/PROJECT_CONTEXT.md
+          evaluations/README.md evaluations/architecture/scenarios.md
+          evaluations/security/scenarios.md evaluations/type-safety/scenarios.md
+          evaluations/maintainability/scenarios.md .github/CONTRIBUTING.md
+          .github/SECURITY.md .github/workflows/validate.yml""".split()
+          # Explicit allowlist: never recursively read a checkout or follow arbitrary links.
+          documents = {}
+          errors = []
+          for name in required:
+              path = root / name
+              if not path.is_file() or path.is_symlink() or any(
+                  parent.is_symlink() for parent in path.parents if parent != root
+              ):
+                  errors.append(f"{name}: missing regular file or symlink path")
+                  continue
+              if name.endswith('.md'):
+                  documents[path] = path.read_text(encoding='utf-8')
+
+          def headings(body):
+              seen, anchors = {}, set()
+              for title in re.findall(r'^#{1,6} (.+)$', body, re.M):
+                  slug = re.sub(r'[^\w\- ]', '', title.lower()).replace(' ', '-')
+                  count = seen.get(slug, 0)
+                  seen[slug] = count + 1
+                  anchors.add(f'{slug}-{count}' if count else slug)
+              return anchors
+
+          links = 0
+          for path, body in documents.items():
+              label = path.relative_to(root)
+              if not body.endswith('\n') or body.endswith('\n\n'):
+                  errors.append(f'{label}: require exactly one final newline')
+              lines = body.splitlines()
+              if not lines or not lines[0].startswith('# '):
+                  errors.append(f'{label}: missing document title')
+              fenced = False
+              for number, line in enumerate(lines, 1):
+                  if line.rstrip() != line or '\t' in line:
+                      errors.append(f'{label}:{number}: trailing whitespace or tab')
+                  if line.startswith('```'):
+                      fenced = not fenced
+                  if not fenced and re.match(r'^#{1,6} ', line):
+                      if number > 1 and lines[number - 2] != '':
+                          errors.append(f'{label}:{number}: missing blank before heading')
+                      if number < len(lines) and lines[number] != '':
+                          errors.append(f'{label}:{number}: missing blank after heading')
+              if fenced:
+                  errors.append(f'{label}: unclosed code fence')
+              # Supports this repository's inline Markdown links, not arbitrary Markdown syntax.
+              for target in re.findall(r'\[[^\]]*\]\(([^\s)]+)\)', body):
+                  parts = urlsplit(target)
+                  if parts.scheme or parts.netloc:
+                      continue
+                  links += 1
+                  destination = (path.parent / unquote(parts.path)).resolve() if parts.path else path
+                  if destination not in documents:
+                      errors.append(f'{label}: local link outside approved document set: {target}')
+                  elif parts.fragment and unquote(parts.fragment) not in headings(documents[destination]):
+                      errors.append(f'{label}: missing heading: {target}')
+          if errors:
+              raise SystemExit('\n'.join(errors))
+          print(f'Passed: {len(required)} required files; {len(documents)} Markdown documents; '
+                f'{links} local links; Markdown hygiene and heading anchors.')
+          PYTHON
