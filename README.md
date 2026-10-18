@@ -227,9 +227,26 @@ is statistically meaningful, and review was not blind. An earlier
 [pilot](evaluations/results/2026-10-18-pilot.md) with a partly exposed control found
 no difference.
 
+A [slop evaluation](evaluations/results/2026-10-18-slop.md) then gave 48 plain user
+requests to fresh environments: four tasks designed to tempt duplicated helpers,
+overengineering, convention drift, and careless bug fixes, with no instructions,
+project context only, or full clean-code.
+
+| Result | No instructions | Context only | Full clean-code |
+| --- | --- | --- | --- |
+| Hidden correctness tests, Opus and Haiku | 100% | 100% | 100% |
+| Automated slop findings | 0 | 0 | 0 |
+| Blind review score of 5, Opus / Haiku | 4.75 / 4.75 | 4.88 / 4.75 | 4.88 / 4.75 |
+| Tokens per run versus no instructions, Opus / Haiku | baseline | +15% / +1% | +90% / +43% |
+
+**No slop reduction was measured.** Without instructions, both models already wrote
+code that reused existing helpers, matched conventions, and preserved tests. Full
+clean-code added cost without improving quality on these small, well-structured
+codebases. Large inherited codebases, long tasks, and other models were not tested.
+
 Treat these instructions as a reviewable policy, not a proven quality multiplier.
-The benefit appeared where project context recorded facts an agent cannot infer,
-such as which commands touch protected data. Since this run, the backup rule lets
+The only measured benefit appeared where project context recorded a fact an agent
+cannot infer, such as which commands touch protected data. Since this run, the backup rule lets
 a clean committed file use its commit as the recovery copy; that fix has not yet
 been re-evaluated. Measure the effect in your own repository with the
 [isolated harness](evaluations/harness/README.md).

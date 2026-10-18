@@ -34,6 +34,32 @@ runs that already have a trace, so an interrupted batch can resume. Instead of
 exporting the key, you can set `EVAL_ENV_FILE` to a file outside the repository
 containing one `ANTHROPIC_API_KEY=...` line; only Docker reads it.
 
+Spending limits: `EVAL_BUDGET_USD` stops the batch before recorded cost reaches it,
+`EVAL_RUN_BUDGET_USD` caps each run (default 1.50), and `EVAL_LIMIT` runs at most N
+fixtures, which is useful for a small check batch before the full set.
+
+## Slop evaluation
+
+`slop/` tests whether instructions reduce low-quality code on plain user requests.
+It builds four small Python codebases (helper reuse, overengineering bait,
+conventions, and a trapped bug fix) in three conditions: no instructions, a
+`CLAUDE.md` pointer to project context only, and full clean-code adopted through
+the README's recommended `CLAUDE.md` pointer. Prompts are identical and mention no
+instructions.
+
+```sh
+python3 -I evaluations/harness/slop/build_fixtures.py ../slop-eval 2
+EVAL_ENV_FILE=... EVAL_BUDGET_USD=10 evaluations/harness/run.sh ../slop-eval claude-opus-5-5
+python3 -I evaluations/harness/slop/score.py ../slop-eval
+EVAL_ENV_FILE=... python3 -I evaluations/harness/slop/judge.py ../slop-eval 3
+```
+
+`score.py` runs `hidden_tests.py` and the visible suite in the no-network container
+and records diff size and task-specific slop checks. `judge.py` has a separate
+Claude instance score each diff against a fixed rubric; packets omit the condition,
+redact framework file names, and are shuffled. Results are in the
+[slop results](../results/2026-10-18-slop.md).
+
 ## Safety and cost
 
 - **Use a dedicated, spend-limited API key and revoke it afterwards.** The key is
