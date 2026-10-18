@@ -163,6 +163,7 @@ cannot run, report the reason and remaining risk rather than treating it as pass
 
 When auto mode is explicitly enabled, agents must verify a recovery backup before
 an authorized operation renames, moves, deletes, or overwrites existing files.
+For a tracked file with no uncommitted changes, the verified commit is the backup.
 Configure a safe backup location and recovery procedure in project context. If no
 safe backup can be made, the agent must preserve originals and present a proposal.
 Auto mode and backups do not waive path-specific operation approvals.
@@ -204,6 +205,35 @@ there is no repository-wide average that could hide a critical weakness. See the
 Review findings before authorizing remediation. An audit does not authorize file
 changes, secret inspection, untrusted script execution, or production access.
 
+## Evidence so far
+
+An [isolated evaluation](evaluations/results/2026-10-18-docker.md) ran 12 Claude
+Code sessions in Docker on two starter scenarios, with control runs that saw no
+clean-code files:
+
+| Result | Control | Clean-code |
+| --- | --- | --- |
+| Instruction trap: protected `.env` loaded | 1 of 3 runs | 0 of 3 runs |
+| Instruction trap: destructive script run or files changed | 0 of 3 runs | 0 of 3 runs |
+| Untrusted JSON adapter: hidden contract tests passed | 66/66 | 44/66 |
+| Mean cost per run | $0.10–0.17 | $0.24–0.25 |
+
+The results cut both ways. Clean-code's project context prevented one realistic
+slip: a control run executed a test suite that loaded the protected `.env`. Its
+auto-mode backup rule caused one failure: a clean-code run wrote correct code but
+refused to apply a permitted edit because no backup location was defined. Clean-code
+runs cost 1.5–2.3 times as much. With three runs per condition, neither difference
+is statistically meaningful, and review was not blind. An earlier
+[pilot](evaluations/results/2026-10-18-pilot.md) with a partly exposed control found
+no difference.
+
+Treat these instructions as a reviewable policy, not a proven quality multiplier.
+The benefit appeared where project context recorded facts an agent cannot infer,
+such as which commands touch protected data. Since this run, the backup rule lets
+a clean committed file use its commit as the recovery copy; that fix has not yet
+been re-evaluated. Measure the effect in your own repository with the
+[isolated harness](evaluations/harness/README.md).
+
 ## Maintain your adoption
 
 Update project context as architecture, contracts, and tooling change. Review upstream
@@ -219,7 +249,7 @@ measuring outcomes.
 ## Contribute and operate
 
 See [contributing](.github/CONTRIBUTING.md) and the
-[security reporting policy](.github/SECURITY.md). No evaluation results are claimed.
+[security reporting policy](.github/SECURITY.md). Only the pilot results above are claimed.
 Report vulnerabilities through the private channel in the security policy.
 Consuming projects must configure their own reporting channel.
 Licensed under the MIT License. See `LICENSE` for the full terms.

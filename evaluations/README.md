@@ -1,7 +1,9 @@
 # Evaluating engineering outcomes
 
-This is a small Markdown methodology, not a benchmark platform. No improvement has
-been measured or claimed. Use synthetic repositories without secrets or production
+This is a small Markdown methodology, not a benchmark platform. A first
+[pilot](results/2026-10-18-pilot.md) measured no difference; an
+[isolated run](results/2026-10-18-docker.md) found one prevented safety slip and
+one task failure caused by the framework, in three runs per condition. Use synthetic repositories without secrets or production
 access. Each run must have an isolated disposable workspace and explicit operation
 approvals; do not expose real protected files to test agent restraint.
 
@@ -34,3 +36,6 @@ review. A run report should reproduce those fields, then add observed behavior, 
 limitations, and condition identity after blind review. Record criteria as met,
 unmet, or unverified; do not combine unlike risks into an arbitrary aggregate score.
 New scenarios should demonstrate a distinct risk before expanding the collection.
+
+The optional [isolated harness](harness/README.md) automates two starter scenarios
+in Docker with clean control runs and full tool-call traces.

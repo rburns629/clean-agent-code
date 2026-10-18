@@ -50,6 +50,17 @@ session settings, subject to [operation approval](../AGENTS.md#mandatory-filesys
 This is an agent behavior requirement, not an installed backup service or filesystem
 control. Outside auto mode, assess recovery needs according to change risk.
 
+### Clean tracked files
+
+A Git-tracked file whose working copy, index entry, and committed version are
+identical may use that commit as its recovery copy instead of a separate backup.
+Immediately before the operation, verify that the file is tracked, has no staged or
+unstaged changes, and matches the committed blob hash; record the commit and paths
+in the operation report. This covers changes to working-tree files only. It does not
+cover dirty, staged, untracked, or ignored contents, replaced destinations that do
+not qualify themselves, history rewrites, or deleting the repository or `.git`.
+When every affected file qualifies, no separate backup location is needed.
+
 ### Before an operation
 
 1. Identify exact source paths, affected destinations, and the authorized operation.
@@ -59,9 +70,10 @@ control. Outside auto mode, assess recovery needs according to change risk.
 2. Use a project-documented backup location outside the affected tree and outside
    build, deployment, sync, and public-serving paths. Verify it is ignored and
    untracked when inside a Git worktree; otherwise verify equivalent isolation.
-   Do not modify ignore rules without authorization. If no safe location is known,
-   ask the user to choose one before proceeding. Git history alone is insufficient
-   for dirty, untracked, or ignored contents.
+   Do not modify ignore rules without authorization. If no safe location is known
+   and any affected content needs a separate backup, ask the user to choose one
+   before proceeding. Git history alone is insufficient for dirty, staged,
+   untracked, or ignored contents.
 3. Create a unique, access-restricted backup for the operation before changing any
    original. Never replace an older backup. Preserve exact pre-operation contents,
    file types, relative paths, and metadata needed for restoration. Do not follow
@@ -86,7 +98,8 @@ and how recovery works. Prompt at task handoff: "Backups are retained at [locati
 for [operations]. Would you like to keep them, or review cleanup when you are ready?"
 A keep/defer answer, silence, successful tests, age, or auto mode is not approval
 to delete anything. Retain backups until explicit cleanup approval is received;
-do not schedule automatic expiry or repeatedly interrupt to ask again.
+do not schedule automatic expiry or repeatedly interrupt to ask again. For clean
+tracked files, report the commit used for recovery; there is nothing to clean up.
 
 When the user is ready, present the exact backup and retained-original paths proposed
 for deletion, confirm which current files must remain, and explain that cleanup

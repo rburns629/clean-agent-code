@@ -32,7 +32,9 @@ jobs:
           templates/PROJECT_CONTEXT_EXAMPLE.md
           evaluations/README.md evaluations/architecture/scenarios.md
           evaluations/security/scenarios.md evaluations/type-safety/scenarios.md
-          evaluations/maintainability/scenarios.md .github/CONTRIBUTING.md
+          evaluations/maintainability/scenarios.md evaluations/results/2026-10-18-pilot.md
+          evaluations/harness/README.md evaluations/results/2026-10-18-docker.md
+          .github/CONTRIBUTING.md
           .github/SECURITY.md .github/workflows/validate.yml""".split()
           # Explicit allowlist: never recursively read a checkout or follow arbitrary links.
           documents = {}
