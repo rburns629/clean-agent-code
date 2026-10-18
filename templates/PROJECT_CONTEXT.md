@@ -28,6 +28,8 @@ Record the completed context's location in the project's agent instructions.
 | Linting | Check-only command |
 | Testing | Commands, prerequisites, safe environments |
 | Security tooling | Approved scan scope and redaction |
+| CLI operations | Approved tool versions, identities, account/tenant/project/subscription, regions, repositories, Terraform backend/workspace, permitted operations, safe inputs/output, and remote recovery |
+| Auto-mode filesystem recovery | Trusted auto-mode signal; isolated backup location; ignore/tracking verification; restore procedure; cleanup approver (no automatic deletion) |
 | Performance requirements | Measurable workload and resource budgets |
 | Operational requirements | Availability, observability, recovery |
 | Compatibility expectations | Supported versions and public contracts |

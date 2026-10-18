@@ -27,7 +27,7 @@ jobs:
 
           root = Path.cwd().resolve()
           required = """README.md AGENTS.md AUDIT.md
-          standards/ARCHITECTURE.md standards/SECURITY.md standards/TYPE_SAFETY.md
+          standards/ARCHITECTURE.md standards/SECURITY.md standards/CLI_OPERATIONS.md standards/TYPE_SAFETY.md
           standards/TESTING.md standards/QUALITY_GATES.md templates/PROJECT_CONTEXT.md
           evaluations/README.md evaluations/architecture/scenarios.md
           evaluations/security/scenarios.md evaluations/type-safety/scenarios.md

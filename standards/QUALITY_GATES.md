@@ -35,6 +35,14 @@ explicit owner acceptance of a documented exception with risk, owner, expiry/rev
 condition, and follow-up. Security and authorization boundaries cannot be silently
 waived; do not claim unverified behavior is proven by exception approval.
 
+## CLI change evidence
+
+For changes performed through a CLI, include the classification, exact target,
+authorization scope, reviewed preview where available, recovery approach, and narrow
+post-operation verification required by [CLI operations](CLI_OPERATIONS.md). Report
+unverified remote outcomes explicitly. A successful command or plan alone does not
+prove a deployment or infrastructure change is correct.
+
 ## CI enforcement
 
 Use the consuming repository's existing tools and reproducible versions. Map

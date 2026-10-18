@@ -10,6 +10,7 @@ Markdown guides decisions; it cannot guarantee security or enforce filesystem is
 - [AUDIT.md](AUDIT.md): independent, evidence-based codebase assessment.
 - [Architecture](standards/ARCHITECTURE.md): design and dependency decisions.
 - [Security](standards/SECURITY.md): secure development and agent risks.
+- [CLI operations](standards/CLI_OPERATIONS.md): cloud, infrastructure, and Git/GitHub safety.
 - [Type safety](standards/TYPE_SAFETY.md): reliable data contracts.
 - [Testing](standards/TESTING.md): behavioral verification.
 - [Quality gates](standards/QUALITY_GATES.md): applicability, evidence, and readiness.
@@ -21,6 +22,8 @@ Markdown guides decisions; it cannot guarantee security or enforce filesystem is
 Use clean-code as a set of reviewable repository instructions. There is no package
 to install or application service to run. Start with one project and one bounded
 engineering task, then adjust the project context based on what you learn.
+The standards provide shared principles; project context defines how your languages,
+frameworks, and tools implement and verify them.
 
 ### 1. Bring the documents into your repository
 
@@ -69,12 +72,53 @@ never include credentials or sensitive values. Resolve conflicts using the prior
 order in AGENTS.md; project context cannot silently waive security, data integrity,
 authorization, or filesystem safeguards.
 
-### 3. Connect the instructions to your agent
+### 3. Map principles to your languages and tools
+
+Use the following examples to decide what belongs in project context. They are
+interpretations of the shared standards, not mandatory tool installations or separate
+rulesets for every language.
+
+| Stack | Apply the principles | Record and verify |
+| --- | --- | --- |
+| TypeScript | Use accurate domain types, strict checking, and validation of untrusted input. | Existing compiler configuration, type-check command, lint/format checks, and behavioral tests. |
+| Python | Use meaningful annotations and boundary validation without repetitive runtime checks inside trusted code. | Configured static analyzer, supported runtime, lint/format checks, and test commands. |
+| Go | Handle errors explicitly and introduce small consumer-scoped interfaces where useful. | Build/static-analysis commands, behavioral tests, and concurrency checks when shared-state behavior is affected. |
+| Rust | Preserve ownership and lifetime safety; justify cloning and review unsafe boundaries. | Build, lint/format checks, tests, and any unsafe-code invariants requiring review. |
+| Java | Model domain contracts with generics, consistent nullability, and established error handling. | Existing build tool, compiler/static-analysis configuration, and unit/integration tests. |
+| Terraform and cloud CLIs | Verify identities, targets, protected inputs, plans, and recovery before authorized changes. | Account/project/subscription and region, backend/workspace, safe validation/preview commands, and separate apply/deployment approval. |
+| Git and GitHub | Preserve existing work and distinguish local changes from remote publication. | Repository/branch targets, permitted operations, review requirements, and push/merge/release approval scope. |
+
+Use the tools and conventions already established in the repository. Record exact
+commands from reviewed configuration and CI rather than guessing them. Include their
+working directories, prerequisites, expected outcomes, and any writes or protected
+inputs they require. An existing command is not automatically safe to execute.
+
+For a repository with several languages, identify each component's language, owner,
+reference files, and applicable commands separately. Include tests for contracts
+between components, such as a frontend calling a backend API. A passing frontend
+type check does not prove the backend validates requests or enforces authorization.
+
+Link to the relevant standards instead of copying their detailed requirements into
+project context. Start with the project's current needs; optional language/tool
+extensions can be introduced later if repeated use demonstrates a concrete gap.
+
+### 4. Connect the instructions to your agent
 
 Use your coding agent's supported repository-instruction mechanism to direct it to
 AGENTS.md, the completed context, and relevant standards. Arbitrary Markdown files
 are not automatically loaded by every agent. Ask the agent to identify the documents
 it consulted and the applicable project conventions before beginning a change.
+
+For recurring work, merge a short pointer like this into the repository instructions
+your agent actually reads, adjusting paths to match your adoption:
+
+```text
+Follow AGENTS.md and the applicable standards under standards/.
+Read templates/PROJECT_CONTEXT.md before making changes.
+Use its component-specific conventions, reference files, and verification commands.
+Apply standards/CLI_OPERATIONS.md when using infrastructure or repository CLIs.
+Preserve existing contracts and report the checks actually performed and their results.
+```
 
 For a first task, adapt this prompt to your repository:
 
@@ -99,7 +143,7 @@ or production operations. Name and approve those operations separately when need
 If approval is unavailable, the agent should preserve originals and present a
 proposal under the filesystem safeguards in AGENTS.md.
 
-### 4. Verify the result
+### 5. Verify the result and enforce checks in CI
 
 Review the diff for correct behavior, preserved contracts, security boundaries, and
 unnecessary complexity. Require the agent to report the actual commands run and
@@ -110,6 +154,36 @@ Configure your own CI to run the project's applicable checks and require them in
 review. Keep commands and prerequisites in project context current. This repository's
 workflow validates its documentation; copying these standards does not install
 language-specific checks or enforce them in your project.
+
+Map the context's required commands to CI jobs for each affected component, and make
+failures block the relevant review/merge path. Record conditional checks for changes
+to APIs, databases, authorization, concurrency, or infrastructure. Use human review
+for architecture and domain semantics that tools cannot assess. If a required check
+cannot run, report the reason and remaining risk rather than treating it as passed.
+
+### Auto-mode backups and cleanup
+
+When auto mode is explicitly enabled, agents must verify a recovery backup before
+an authorized operation renames, moves, deletes, or overwrites existing files.
+Configure a safe backup location and recovery procedure in project context. If no
+safe backup can be made, the agent must preserve originals and present a proposal.
+Auto mode and backups do not waive path-specific operation approvals.
+
+At handoff, the agent reports retained backups and asks whether you want to keep
+them or review cleanup when ready. Nothing is automatically expired or deleted.
+Cleanup requires your explicit approval of the exact artifacts to remove. See the
+[backup procedure](standards/SECURITY.md#auto-mode-backups-and-cleanup) for verification,
+protected-data handling, recovery, and cleanup safeguards. These instructions guide
+agent behavior; adopting them does not install a backup tool.
+
+### Use cloud and repository CLIs safely
+
+Before asking an agent to use AWS, Azure, GCP, Terraform, or Git/GitHub, record the
+approved identities, environments, resource/repository targets, and permitted
+operations in project context. The [CLI policy](standards/CLI_OPERATIONS.md) separates
+metadata reads from sensitive reads, local writes, and remote changes. Authorize
+production access, deployments, permission changes, publication, and deletion
+explicitly; a coding task or auto mode does not implicitly approve these actions.
 
 ## Audit an existing codebase
 
