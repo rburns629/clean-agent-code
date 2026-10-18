@@ -1,19 +1,22 @@
 # Security reporting policy
 
-Reporting channel: **OWNER CONFIGURATION REQUIRED — private reporting contact or
-private vulnerability-reporting URL has not been configured.**
+Report vulnerabilities privately through
+[GitHub private vulnerability reporting](https://github.com/rburns629/clean-code/security/advisories/new).
+Private vulnerability reporting is enabled for this repository. Reports are reviewed
+by the repository owner and authorized maintainers through GitHub's private workflow.
 
-Until the owner supplies a verified private channel, do not post vulnerability
-exploit details, credentials, or sensitive logs in public issues. A public request
-to configure private reporting should contain no vulnerability details. This policy
-does not promise a response time or imply that a private channel is available.
+Include the affected revision, impact, safe reproduction steps, and suggested
+mitigation. Use synthetic examples and redact secrets. Do not post exploit details,
+credentials, or sensitive logs in public issues. Do not access others' data, disrupt
+services, or run production exploits to prove a report.
 
-Once configured, report affected revision, impact, safe reproduction steps, and
-suggested mitigation through that channel. Use synthetic examples and redact secrets.
-Do not access others' data, disrupt services, or run production exploits to prove a
-report. Coordinate disclosure and remediation with the owner; do not assume a
-fixed disclosure deadline or authorization for testing.
+If private reporting is unavailable, do not fall back to public disclosure of details.
+A public request to restore the reporting channel should contain no vulnerability
+details. Never use this repository's reporting URL for a different project's private
+reports; consuming projects must configure their own channel.
 
-The owner should configure intake, triage responsibility, supported revisions, and
-acknowledgment/update expectations before public release. Engineering guidance lives
-in [the security standard](../standards/SECURITY.md); this file owns reporting policy.
+Coordinate disclosure and remediation with maintainers. No response-time guarantee,
+fixed disclosure deadline, supported-version commitment, or testing authorization
+is implied. Include your affected revision so maintainers can determine scope.
+Engineering guidance lives in [the security standard](../standards/SECURITY.md);
+this file owns reporting policy.

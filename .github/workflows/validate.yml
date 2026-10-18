@@ -29,6 +29,7 @@ jobs:
           required = """README.md AGENTS.md AUDIT.md
           standards/ARCHITECTURE.md standards/SECURITY.md standards/CLI_OPERATIONS.md standards/TYPE_SAFETY.md
           standards/TESTING.md standards/QUALITY_GATES.md templates/PROJECT_CONTEXT.md
+          templates/PROJECT_CONTEXT_EXAMPLE.md
           evaluations/README.md evaluations/architecture/scenarios.md
           evaluations/security/scenarios.md evaluations/type-safety/scenarios.md
           evaluations/maintainability/scenarios.md .github/CONTRIBUTING.md

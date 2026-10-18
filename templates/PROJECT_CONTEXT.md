@@ -22,6 +22,7 @@ Record the completed context's location in the project's agent instructions.
 | Authentication | Identity mechanisms and boundaries |
 | Authorization | Resource/tenant policy and enforcement points |
 | Data sensitivity | Classification, retention, approved handling; no values |
+| Protected paths and value files | Exact paths/globs, classification authority, known non-sensitive examples, and loader/search exclusions; never secret values |
 | Trust boundaries | External inputs and validation ownership |
 | Type checking | Commands and configuration references |
 | Formatting | Check-only command |
@@ -41,3 +42,7 @@ Record path-specific filesystem approvals separately; context is not blanket per
 to read protected material or overwrite files. Exceptions cannot silently weaken
 security, correctness, data integrity, or authorization. Review context when contracts,
 requirements, or tooling change.
+
+See the [completed fictional example](PROJECT_CONTEXT_EXAMPLE.md) for one way to map
+these fields to a stack. Its commands, identities, and paths are illustrative, not
+configuration or authorization for this repository.

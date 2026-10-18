@@ -63,7 +63,8 @@ the initial choices and their reasons. Include:
 
 - Architecture, domain terms, module ownership, and reference source paths.
 - Supported languages, runtimes, deployment targets, and public contracts.
-- Authentication, authorization, trust boundaries, and data sensitivity.
+- Authentication, authorization, trust boundaries, data sensitivity, and protected
+  configuration/value paths classified by their owners.
 - Exact check-only commands for formatting, linting, types, builds, and tests.
 - Test prerequisites, performance requirements, and known verification gaps.
 
@@ -71,6 +72,11 @@ Complete relevant fields only. Mark unknowns instead of inventing requirements, 
 never include credentials or sensitive values. Resolve conflicts using the priority
 order in AGENTS.md; project context cannot silently waive security, data integrity,
 authorization, or filesystem safeguards.
+
+See the [completed fictional project context](templates/PROJECT_CONTEXT_EXAMPLE.md)
+for a TypeScript/Python service with Terraform, concrete check commands, protected
+paths, and approval boundaries. Adapt its structure using your project's actual
+configuration; the example does not install tools or grant operational permissions.
 
 ### 3. Map principles to your languages and tools
 
@@ -217,5 +223,6 @@ measuring outcomes.
 
 See [contributing](.github/CONTRIBUTING.md) and the
 [security reporting policy](.github/SECURITY.md). No evaluation results are claimed.
-The reporting channel must be configured by the owner before public security intake.
+Report vulnerabilities through the private channel in the security policy.
+Consuming projects must configure their own reporting channel.
 Licensed under the MIT License. See `LICENSE` for the full terms.

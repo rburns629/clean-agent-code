@@ -21,13 +21,20 @@ conflicts rather than silently relaxing a requirement.
 ## Mandatory filesystem safety
 
 Do not inspect protected contents without explicit approval identifying paths and
-purpose. Protected material includes `.env`, `.env.*`, `envs/`, `.envs/`, `secrets/`,
+purpose. Protected material includes `.env`, `.env.*`, `env/`, `envs/`, `.envs/`, `secrets/`,
 `credentials/`, `.ssh/`, `.aws/`, `.azure/`, other cloud credentials, private keys,
 certificates, Terraform state, and files containing tokens or secret values.
 This applies to direct reads, recursive searches, indexing, tool-assisted inspection,
 and scripts that implicitly load files. Hidden files are not automatically safe.
 Use explicit safe file lists; stop if unexpectedly encountered content appears secret.
 Do not reproduce exposed values in reports.
+
+Project context must identify additional protected directories and tool-specific
+value/configuration files, plus explicitly classified non-sensitive examples.
+Treat unknown value files as potentially sensitive: establish classification from
+owner guidance or approved documentation, not by opening or searching their contents.
+Do not run loaders, discovery commands, or delegated searches that bypass this rule.
+Safe filenames, ignore status, and a committed file are not proof of safe contents.
 
 Explicit approval identifying operation and affected paths is required before
 existing files are deleted, moved, renamed, overwritten, or existing configurations
@@ -63,6 +70,22 @@ Before using cloud, infrastructure, Git, or other CLIs, follow
 classify real effects and sensitive reads, and stay within existing authorization.
 Auto mode, credentials, previews, and confirmation-suppression flags do not grant
 approval. Verify outcomes and preserve appropriate recovery options.
+
+## Delegation safeguards
+
+When delegating to another agent or model, including nested delegation:
+
+1. Pass the applicable instructions, a bounded task, allowed paths/tools, expected
+   deliverable, and acceptance criteria. Specify whether it may edit or only propose.
+2. Share only necessary context. Delegation cannot expand approval scope or grant
+   access to protected data; propagate existing approval limits to every delegate.
+3. Assign non-overlapping write ownership in shared workspaces or serialize edits.
+   Coordinate destructive operations and honor stop requests across delegated work.
+4. Review returned changes and verification evidence before integration. A delegate's
+   success claim is insufficient; identify checks that still require execution.
+5. The parent remains accountable for integration, final reporting, backup retention,
+   and cleanup approval. Use actual tool restrictions or isolation where needed;
+   passing instructions alone does not enforce a boundary.
 
 ## Implementation and evidence
 
