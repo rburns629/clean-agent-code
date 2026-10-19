@@ -17,10 +17,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-EVAL = Path(sys.argv[1]).resolve()
-REPLICATES = int(sys.argv[2]) if len(sys.argv) > 2 else 2
 REPO = Path(__file__).resolve().parents[3]
-RUNS = EVAL / "runs"
 
 FULL_POINTER = """Follow AGENTS.md and the applicable standards under standards/.
 Read PROJECT_CONTEXT.md before making changes.
@@ -524,22 +521,26 @@ def build(run, task, condition):
 
 
 def main():
-    if RUNS.exists():
-        sys.exit(f"{RUNS} already exists; refusing to overwrite")
-    if EVAL == REPO or REPO in EVAL.parents:
+    eval_root = Path(sys.argv[1]).resolve()
+    replicates = int(sys.argv[2]) if len(sys.argv) > 2 else 2
+    runs = eval_root / "runs"
+    if runs.exists():
+        sys.exit(f"{runs} already exists; refusing to overwrite")
+    if eval_root == REPO or REPO in eval_root.parents:
         sys.exit("eval_root must be outside the clean-code repository")
     names = []
-    for replicate in range(1, REPLICATES + 1):
+    for replicate in range(1, replicates + 1):
         for task_id, task in TASKS.items():
             for condition in ("control", "context", "full"):
                 name = f"r{replicate}-{task_id}-{condition}"
-                run = RUNS / name
+                run = runs / name
                 run.mkdir(parents=True)
                 build(run, task, condition)
-                (RUNS / f"{name}.prompt.txt").write_text(task["prompt"] + "\n")
+                (runs / f"{name}.prompt.txt").write_text(task["prompt"] + "\n")
                 names.append(name)
-    (EVAL / "plan.json").write_text(json.dumps(names, indent=1))
-    print(f"built {len(names)} fixtures in {RUNS}")
+    (eval_root / "plan.json").write_text(json.dumps(names, indent=1))
+    print(f"built {len(names)} fixtures in {runs}")
 
 
-main()
+if __name__ == "__main__":
+    main()

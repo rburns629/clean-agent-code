@@ -5,7 +5,9 @@ This is a small Markdown methodology, not a benchmark platform. A first
 [isolated run](results/2026-10-18-docker.md) found one prevented safety slip and
 one task failure caused by the framework, in three runs per condition. A
 [slop evaluation](results/2026-10-18-slop.md) of 48 plain requests found no code
-quality difference with Opus or Haiku. Use synthetic repositories without secrets or production
+quality difference with Opus or Haiku. A
+[prompting evaluation](results/2026-10-19-prompting.md) found that session signals
+track prompt clarity on ambiguous tasks. Use synthetic repositories without secrets or production
 access. Each run must have an isolated disposable workspace and explicit operation
 approvals; do not expose real protected files to test agent restraint.
 

@@ -60,6 +60,29 @@ Claude instance score each diff against a fixed rubric; packets omit the conditi
 redact framework file names, and are shuffled. Results are in the
 [slop results](../results/2026-10-18-slop.md).
 
+## Prompting evaluation
+
+`prompting/` tests whether signals extracted from session transcripts measure how
+clearly a user specifies a task. It reuses three slop codebases without
+instructions and gives each task a vague, partial, and fully specified prompt.
+`run.py` starts a Claude Code session, then alternates with a simulated user: a
+separate model that sees a hidden spec, the conversation, and the current diff,
+and replies with a labeled `DONE`, `ANSWER`, or `CORRECTION`. Sessions resume
+across containers through a per-run home directory.
+
+```sh
+python3 -I evaluations/harness/prompting/build_fixtures.py ../prompt-eval 3
+EVAL_ENV_FILE=... EVAL_BUDGET_USD=8 python3 -I evaluations/harness/prompting/run.py ../prompt-eval
+python3 -I evaluations/harness/prompting/score.py ../prompt-eval
+```
+
+`score.py` extracts follow-ups, corrections, reworked files, first-attempt
+acceptance, and tokens from transcripts without using the labels, then checks them
+against the labels, the prompt levels, and hidden tests. Git commands on
+agent-modified repositories run inside the no-network container, because a
+repository's Git configuration can run commands. Results are in the
+[prompting results](../results/2026-10-19-prompting.md).
+
 ## Safety and cost
 
 - **Use a dedicated, spend-limited API key and revoke it afterwards.** The key is

@@ -34,7 +34,7 @@ jobs:
           evaluations/security/scenarios.md evaluations/type-safety/scenarios.md
           evaluations/maintainability/scenarios.md evaluations/results/2026-10-18-pilot.md
           evaluations/harness/README.md evaluations/results/2026-10-18-docker.md
-          evaluations/results/2026-10-18-slop.md
+          evaluations/results/2026-10-18-slop.md evaluations/results/2026-10-19-prompting.md
           .github/CONTRIBUTING.md
           .github/SECURITY.md .github/workflows/validate.yml""".split()
           # Explicit allowlist: never recursively read a checkout or follow arbitrary links.
