@@ -14,6 +14,13 @@ Use straightforward functional decomposition when it makes responsibilities clea
 Prefer composition when behavior must vary independently; inheritance is appropriate
 for a genuine substitutable relationship with a stable behavioral contract.
 
+When the same logic serves several real data sources or providers, such as a live
+database and a cache, keep that logic in one place and put the variation behind a
+narrow boundary. Avoid both duplicating functions per source and branching on the
+source inside every function. Keep independent mechanisms separate: pagination,
+external batch limits, and concurrency are simpler as distinct steps than as one
+combined loop.
+
 Protect public contracts, including error behavior and serialization. Refactor in
 small verifiable steps; preserve compatibility or document an approved migration.
 Follow existing repository patterns unless evidence shows a concrete defect.

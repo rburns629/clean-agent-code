@@ -13,11 +13,40 @@ inspection, or production access.
 2. Read permitted documentation, representative source and configuration, and CI.
    Trace important success and failure paths across actual module boundaries.
 3. Evaluate architecture, security, data contracts, testing, maintenance burden,
-   compatibility, migrations, and documented operational/performance requirements.
+   [consistency and drift](#consistency-and-drift), compatibility, migrations, and
+   documented operational/performance requirements.
 4. Run only safe, authorized checks after reviewing what commands execute and load.
    Record exact commands, environment, outcomes, and unavailable infrastructure.
 5. Separate confirmed defects, suspected risks, and improvements. Seek counterevidence
    and distinguish intentional conventions from demonstrable defects.
+6. When a design choice could be intentional, ask the owner for the rationale before
+   scoring it as a defect, and record the answer beside the finding. Owner rationale
+   can reclassify a design decision; it does not close a defect in how that decision
+   was implemented.
+
+## Consistency and drift
+
+Measure drift against the conventions and reference implementations recorded in
+[project context](templates/PROJECT_CONTEXT.md). Without a baseline, report the
+variants observed rather than declaring one correct. Look for:
+
+- Diverged copies: near-duplicate code whose fixes or behavior differ between copies.
+- Convention conformance by module and period: naming, error handling, data access,
+  concurrency, logging, and test layout.
+- Layering violations and when they appeared.
+- Several implementations of one concept, such as pagination, retries, date
+  handling, or currency conversion, that behave differently.
+
+Use clone detection, linters, dependency rules, pattern searches, and semantic
+review as available, and verify semantic matches manually. When using history,
+exclude formatting-only revisions, follow moves and copies, and report by module and
+time period rather than by individual contributor.
+
+Style variation alone is not a defect. Report drift with consequences, such as a
+fix applied to only one copy, inconsistent behavior, or higher change cost, as
+findings; report the rest as observations. Recommend preventing new drift, for
+example by failing changes that add convention violations, rather than rewriting
+existing code wholesale.
 
 ## Report
 
@@ -26,7 +55,8 @@ reproduction when safe, confidence, and a focused corrective recommendation.
 Prioritize findings by demonstrated impact and likelihood, independently of category
 scores. Use the rubric below to explain numerical ratings; never invent a grade
 without evidence. Do not expose credentials or sensitive payloads in reproductions.
-Include strengths, exceptions, coverage gaps, and the limits of sampled inspection.
+Include strengths, exceptions, owner-confirmed design decisions with their rationale,
+coverage gaps, and the limits of sampled inspection.
 Report applicable gates as Passed, Failed, Not run, or Not applicable with reasons
 as required by [quality gates](standards/QUALITY_GATES.md).
 
@@ -88,7 +118,7 @@ Replace placeholders with actual evidence; add categories only for concrete need
 | Architecture | Unassessed | Not yet inspected | Pending boundaries and dependency review | State missing evidence |
 | Type safety and data contracts | Unassessed | Not yet inspected | Pending boundary/schema review | State missing evidence |
 | Testing and verification | Unassessed | Not yet inspected | Pending test quality and execution review | State missing evidence |
-| Readability and maintainability | Unassessed | Not yet inspected | Pending representative source review | State missing evidence |
+| Readability and maintainability | Unassessed | Not yet inspected | Pending representative source review and drift assessment | State missing evidence |
 | Performance and operations | Unassessed | Not yet inspected | Pending documented requirements and measurements | State missing evidence |
 | Compatibility and migration safety | Unassessed | Not yet inspected | Pending contract and persistence-change review | State missing evidence |
 
