@@ -14,7 +14,9 @@ inspection, or production access.
    Trace important success and failure paths across actual module boundaries.
 3. Evaluate architecture, security, data contracts, testing, maintenance burden,
    [consistency and drift](#consistency-and-drift), compatibility, migrations, and
-   documented operational/performance requirements.
+   documented operational/performance requirements. Treat code a
+   [simpler solution](standards/ARCHITECTURE.md#simplest-sufficient-solution) would
+   remove as a maintenance finding.
 4. Run only safe, authorized checks after reviewing what commands execute and load.
    Record exact commands, environment, outcomes, and unavailable infrastructure.
 5. Separate confirmed defects, suspected risks, and improvements. Seek counterevidence

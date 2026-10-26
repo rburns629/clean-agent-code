@@ -4,6 +4,19 @@ Preserve intentional architecture and domain semantics. Choose complexity from
 current requirements, not the popularity of Clean Architecture, hexagonal design,
 domain-driven design, or microservices.
 
+## Simplest sufficient solution
+
+Among solutions that meet the requirement, choose the one with the least code and
+fewest moving parts. Prefer removing or reusing existing code, the standard library,
+or an approved dependency over writing new code. Do not add unrequested features,
+options, parameters, layers, wrappers, or handling for states that cannot occur.
+Shorter means fewer concepts, not denser code; keep clear names and readable flow.
+
+Never simplify by removing security controls, validation at trust boundaries,
+authorization, error handling callers rely on, or tests covering the change. When
+the shortest version would weaken one of these, keep the control and simplify
+elsewhere. When a requirement forces complexity, name the requirement.
+
 ## Design boundaries
 
 Separate concerns into cohesive modules with explicit ownership and domain boundaries.

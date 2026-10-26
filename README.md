@@ -130,9 +130,10 @@ You may create: [specific new paths].
 You may modify: [specific existing paths].
 Other existing-file changes require approval. Do not inspect protected contents.
 
-Preserve established contracts and conventions. Make the smallest coherent
-change. Run the applicable safe checks and report each as Passed, Failed,
-Not run, or Not applicable, with evidence and reasons for verification gaps.
+Preserve established contracts and conventions. Make the simplest change that
+meets the acceptance criteria without weakening security. Run the applicable
+safe checks and report each as Passed, Failed, Not run, or Not applicable, with
+evidence and reasons for verification gaps.
 ```
 
 Replace the brackets before use. Approval to modify named files does not grant

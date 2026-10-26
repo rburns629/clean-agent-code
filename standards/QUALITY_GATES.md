@@ -8,7 +8,7 @@ successful compile are insufficient evidence of production readiness.
 
 | Level | Checks and applicability |
 | --- | --- |
-| Mandatory | Existing required formatting, linting, static analysis, type checking, build/compilation, and relevant unit tests where supported; architecture and documentation consistency review for every change. |
+| Mandatory | Existing required formatting, linting, static analysis, type checking, build/compilation, and relevant unit tests where supported; architecture, simplicity, and documentation consistency review for every change. |
 | Conditional | Integration and contract tests for changed boundaries; security, dependency vulnerability, and secret scans for relevant code/configuration/dependency changes; compatibility review for public contracts; migration safety for persisted data; concurrency and deployment checks where affected; performance verification for affected hard requirements. |
 | Recommended | Additional exploratory, property-based, resilience, or broader end-to-end checks when they add confidence beyond required gates. |
 
