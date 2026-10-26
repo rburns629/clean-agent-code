@@ -13,7 +13,7 @@ approvals; do not expose real protected files to test agent restraint.
 
 ## Paired comparison
 
-Run the same task on the same initial snapshot with and without clean-code
+Run the same task on the same initial snapshot with and without clean-agent-code
 instructions. Keep model/version, tool permissions, dependencies, task text, time
 budget, and environment consistent. Record the exact instructions loaded; avoid
 leaking one run's solution into the other. Repeat with independent runs when feasible

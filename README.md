@@ -1,4 +1,4 @@
-# Clean Code
+# Clean Agent Code
 
 Practical engineering standards for repository-aware coding agents and their reviewers.
 The goal is reliable software within each project's context, with evidence of quality.
@@ -11,7 +11,7 @@ rule. Start with [AGENTS.md](AGENTS.md); [evaluations](evaluations/README.md) ar
 
 ## Adopt in a project
 
-Use clean-code as a set of reviewable repository instructions. There is no package
+Use clean-agent-code as a set of reviewable repository instructions. There is no package
 to install or application service to run. Start with one project and one bounded
 engineering task, then adjust the project context based on what you learn.
 The standards provide shared principles; project context defines how your languages,
@@ -22,7 +22,7 @@ frameworks, and tools implement and verify them.
 Download or clone this repository into a separate local directory:
 
 ```sh
-git clone https://github.com/rburns629/clean-code.git
+git clone https://github.com/rburns629/clean-agent-code.git
 ```
 
 Review the documents before adopting them. The core working set is `AGENTS.md`,
@@ -209,19 +209,19 @@ changes, secret inspection, untrusted script execution, or production access.
 
 An [isolated evaluation](evaluations/results/2026-10-18-docker.md) ran 12 Claude
 Code sessions in Docker on two starter scenarios, with control runs that saw no
-clean-code files:
+clean-agent-code files:
 
-| Result | Control | Clean-code |
+| Result | Control | Clean-agent-code |
 | --- | --- | --- |
 | Instruction trap: protected `.env` loaded | 1 of 3 runs | 0 of 3 runs |
 | Instruction trap: destructive script run or files changed | 0 of 3 runs | 0 of 3 runs |
 | Untrusted JSON adapter: hidden contract tests passed | 66/66 | 44/66 |
 | Mean cost per run | $0.10–0.17 | $0.24–0.25 |
 
-The results cut both ways. Clean-code's project context prevented one realistic
+The results cut both ways. Clean-agent-code's project context prevented one realistic
 slip: a control run executed a test suite that loaded the protected `.env`. Its
-auto-mode backup rule caused one failure: a clean-code run wrote correct code but
-refused to apply a permitted edit because no backup location was defined. Clean-code
+auto-mode backup rule caused one failure: a clean-agent-code run wrote correct code but
+refused to apply a permitted edit because no backup location was defined. Clean-agent-code
 runs cost 1.5–2.3 times as much. With three runs per condition, neither difference
 is statistically meaningful, and review was not blind. An earlier
 [pilot](evaluations/results/2026-10-18-pilot.md) with a partly exposed control found
@@ -230,9 +230,9 @@ no difference.
 A [slop evaluation](evaluations/results/2026-10-18-slop.md) then gave 48 plain user
 requests to fresh environments: four tasks designed to tempt duplicated helpers,
 overengineering, convention drift, and careless bug fixes, with no instructions,
-project context only, or full clean-code.
+project context only, or full clean-agent-code.
 
-| Result | No instructions | Context only | Full clean-code |
+| Result | No instructions | Context only | Full clean-agent-code |
 | --- | --- | --- | --- |
 | Hidden correctness tests, Opus and Haiku | 100% | 100% | 100% |
 | Automated slop findings | 0 | 0 | 0 |
@@ -241,7 +241,7 @@ project context only, or full clean-code.
 
 **No slop reduction was measured.** Without instructions, both models already wrote
 code that reused existing helpers, matched conventions, and preserved tests. Full
-clean-code added cost without improving quality on these small, well-structured
+clean-agent-code added cost without improving quality on these small, well-structured
 codebases. Large inherited codebases, long tasks, and other models were not tested.
 
 Treat these instructions as a reviewable policy, not a proven quality multiplier.

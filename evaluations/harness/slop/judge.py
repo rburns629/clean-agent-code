@@ -19,7 +19,7 @@ IMAGE = "clean-code-eval:2.1.289"
 MODEL = os.environ.get("EVAL_JUDGE_MODEL", "claude-opus-5-5")
 DOCS = [":(exclude)AGENTS.md", ":(exclude)CLAUDE.md", ":(exclude)PROJECT_CONTEXT.md",
         ":(exclude)standards", ":(exclude)templates"]
-REDACT = re.compile(r"AGENTS\.md|CLAUDE\.md|PROJECT_CONTEXT\.md|standards/[\w./-]+|clean-code", re.I)
+REDACT = re.compile(r"AGENTS\.md|CLAUDE\.md|PROJECT_CONTEXT\.md|standards/[\w./-]+|clean-(?:agent-)?code", re.I)
 
 RUBRIC = """You are reviewing a code change for a code-quality study. Judge only the change
 shown, against the existing codebase and the user's request. Score each criterion

@@ -137,7 +137,7 @@ unexecuted checks. A category score is never a substitute for this execution rec
 ## Example report excerpt
 
 Everything below is fictional and illustrates report structure. The paths, scores,
-and findings are not an audit of clean-code. Example snippets are proposed changes,
+and findings are not an audit of clean-agent-code. Example snippets are proposed changes,
 not applied fixes or proof that verification passed.
 
 Scope: a task-read endpoint and its JSON adapter at fictional revision `example-1`;

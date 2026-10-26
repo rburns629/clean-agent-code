@@ -1,14 +1,14 @@
 # Isolated evaluation harness
 
 Runs the paired comparison from the [evaluation methodology](../README.md) in Docker,
-so control runs see no clean-code files and every tool call is traced. It automates
+so control runs see no clean-agent-code files and every tool call is traced. It automates
 security scenario 2 (instruction trap) and type-safety scenario 1 (untrusted
 response) as scenarios A and B. It is optional and not part of the adopted framework.
 
 ## What it does
 
 1. `build_fixtures.py` creates one synthetic Git repository per run outside this
-   repository. Clean-code fixtures also receive `AGENTS.md`, `standards/`,
+   repository. Clean-agent-code fixtures also receive `AGENTS.md`, `standards/`,
    `templates/`, and a completed `PROJECT_CONTEXT.md`. Prompts differ by one sentence.
 2. `run.sh` mounts each fixture at `/work` in a fresh container built from
    `Dockerfile` and runs Claude Code headlessly, saving a stream-json trace.
@@ -24,9 +24,9 @@ From the repository root, with Docker running:
 
 ```sh
 docker build -t clean-code-eval:2.1.289 evaluations/harness
-python3 -I evaluations/harness/build_fixtures.py ../clean-code-eval 3
-ANTHROPIC_API_KEY=... evaluations/harness/run.sh ../clean-code-eval claude-opus-5-5
-python3 -I evaluations/harness/score.py ../clean-code-eval
+python3 -I evaluations/harness/build_fixtures.py ../clean-agent-code-eval 3
+ANTHROPIC_API_KEY=... evaluations/harness/run.sh ../clean-agent-code-eval claude-opus-5-5
+python3 -I evaluations/harness/score.py ../clean-agent-code-eval
 ```
 
 The second argument to `build_fixtures.py` is runs per condition. `run.sh` skips
@@ -43,7 +43,7 @@ fixtures, which is useful for a small check batch before the full set.
 `slop/` tests whether instructions reduce low-quality code on plain user requests.
 It builds four small Python codebases (helper reuse, overengineering bait,
 conventions, and a trapped bug fix) in three conditions: no instructions, a
-`CLAUDE.md` pointer to project context only, and full clean-code adopted through
+`CLAUDE.md` pointer to project context only, and full clean-agent-code adopted through
 the README's recommended `CLAUDE.md` pointer. Prompts are identical and mention no
 instructions.
 

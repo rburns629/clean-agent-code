@@ -1,5 +1,7 @@
 # Prompting results: 2026-10-19
 
+_Written when this project was named clean-code. It is now clean-agent-code._
+
 Tests whether signals extracted from agent session transcripts can measure how
 clearly a user specifies a task. Run with the
 [prompting harness](../harness/README.md#prompting-evaluation): fresh Docker

@@ -1,6 +1,6 @@
 # Project context example: fictional task tracker
 
-This completed example describes a fictional repository, not clean-code. The paths,
+This completed example describes a fictional repository, not clean-agent-code. The paths,
 commands, team roles, identities, and budgets below are illustrative project choices.
 They do not exist here and must not be executed or treated as authorization here.
 Replace them with observed facts when using the [template](PROJECT_CONTEXT.md).
@@ -48,7 +48,7 @@ account IDs, tokens, or actual private values belong in this context document.
 ## Verification commands
 
 These fictional package scripts and tool configurations are assumed to have been
-reviewed in the example repository. They are not provided by clean-code.
+reviewed in the example repository. They are not provided by clean-agent-code.
 
 | Component and directory | Commands | Preconditions and scope |
 | --- | --- | --- |

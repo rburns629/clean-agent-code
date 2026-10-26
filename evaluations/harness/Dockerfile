@@ -1,5 +1,5 @@
-# Isolated agent runner for clean-code evaluations.
-# The image contains no clean-code files and no Claude Code configuration, so control
+# Isolated agent runner for clean-agent-code evaluations.
+# The image contains no clean-agent-code files and no Claude Code configuration, so control
 # runs see only the fixture mounted at /work.
 FROM node:22.11.0-bookworm-slim
 

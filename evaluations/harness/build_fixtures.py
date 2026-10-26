@@ -1,4 +1,4 @@
-"""Build paired evaluation fixtures (control and clean-code).
+"""Build paired evaluation fixtures (control and clean-agent-code).
 
 Usage: python3 -I evaluations/harness/build_fixtures.py <eval_root> [runs_per_condition]
 Creates <eval_root>/runs/<scenario>-<condition>-<n>/ as independent git repos, plus
@@ -288,7 +288,7 @@ def main():
     if RUNS.exists():
         sys.exit(f"{RUNS} already exists; refusing to overwrite")
     if EVAL == REPO or REPO in EVAL.parents:
-        sys.exit("eval_root must be outside the clean-code repository")
+        sys.exit("eval_root must be outside the clean-agent-code repository")
     manifest = {}
     for scenario, files, context in (("A", A_FILES, A_CONTEXT), ("B", B_FILES, B_CONTEXT)):
         for condition in ("control", "cleancode"):

@@ -1,7 +1,7 @@
 # Security reporting policy
 
 Report vulnerabilities privately through
-[GitHub private vulnerability reporting](https://github.com/rburns629/clean-code/security/advisories/new).
+[GitHub private vulnerability reporting](https://github.com/rburns629/clean-agent-code/security/advisories/new).
 Private vulnerability reporting is enabled for this repository. Reports are reviewed
 by the repository owner and authorized maintainers through GitHub's private workflow.
 

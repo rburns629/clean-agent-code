@@ -73,7 +73,7 @@ def main():
     if runs.exists():
         sys.exit(f"{runs} already exists; refusing to overwrite")
     if eval_root == REPO or REPO in eval_root.parents:
-        sys.exit("eval_root must be outside the clean-code repository")
+        sys.exit("eval_root must be outside the clean-agent-code repository")
     plan = []
     for replicate in range(1, replicates + 1):
         for task_id, prompts in PROMPTS.items():
