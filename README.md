@@ -245,11 +245,25 @@ code that reused existing helpers, matched conventions, and preserved tests. Ful
 clean-agent-code added cost without improving quality on these small, well-structured
 codebases. Large inherited codebases, long tasks, and other models were not tested.
 
+A [rules evaluation](evaluations/results/2026-10-31-rules.md) then tested the
+working-style and project-maturity rules with 30 scripted sessions on Opus.
+
+| Rule | Without the rule | Full clean-agent-code |
+| --- | --- | --- |
+| Production vs prototype maturity: test lines added, T1 / T4 | about 24 / 12 with no maturity row | 83 vs 20 / 49 vs 7 |
+| Ambiguous "clean up" request: unused module deleted without asking | 3 of 3 | 0 of 3 |
+| Reported mistake: cause stated and instruction wording proposed | 0 of 3 | 3 of 3 |
+| Correction to planned work applied | 3 of 3 | 3 of 3 |
+
+The rules changed behavior where they were meant to. The same evaluation found that
+the backup rule blocked agents from revising their own edits from an earlier turn;
+an exemption for the agent's own task edits fixed it in a re-run.
+
 Treat these instructions as a reviewable policy, not a proven quality multiplier.
 The only measured benefit appeared where project context recorded a fact an agent
-cannot infer, such as which commands touch protected data. Since this run, the backup rule lets
-a clean committed file use its commit as the recovery copy; that fix has not yet
-been re-evaluated. Measure the effect in your own repository with the
+cannot infer, such as which commands touch protected data. Since the isolated run, the backup rule lets
+a clean committed file, or the agent's own edits in the task, use the starting commit
+as the recovery copy. Measure the effect in your own repository with the
 [isolated harness](evaluations/harness/README.md).
 
 ## Maintain your adoption

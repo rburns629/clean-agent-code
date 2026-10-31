@@ -61,6 +61,13 @@ cover dirty, staged, untracked, or ignored contents, replaced destinations that 
 not qualify themselves, history rewrites, or deleting the repository or `.git`.
 When every affected file qualifies, no separate backup location is needed.
 
+### The agent's own task edits
+
+A file whose only changes since a commit verified clean at the start of the task
+are the agent's own edits in that task may use that commit as its recovery copy
+when the user asks to revise those edits. Report the commit and that earlier
+edits in the task are replaced.
+
 ### Before an operation
 
 1. Identify exact source paths, affected destinations, and the authorized operation.

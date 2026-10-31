@@ -83,6 +83,24 @@ agent-modified repositories run inside the no-network container, because a
 repository's Git configuration can run commands. Results are in the
 [prompting results](../results/2026-10-19-prompting.md).
 
+## Rules evaluation
+
+`rules/` tests the working-style and project-maturity rules with scripted,
+multi-turn sessions on the slop codebases. Scenarios cover maturity (prototype or
+production context), a blocked queue (an ambiguous cleanup request), a correction to
+planned work, and a reported mistake. `plan.json` lists each run's messages.
+
+```sh
+python3 -I evaluations/harness/rules/build_fixtures.py ../rules-eval 3
+EVAL_ENV_FILE=... EVAL_BUDGET_USD=8 python3 -I evaluations/harness/rules/run.py ../rules-eval
+python3 -I evaluations/harness/rules/score.py ../rules-eval
+```
+
+`score.py` runs hidden tests and inspects each repository inside the no-network
+container. Its text checks are keyword heuristics; confirm them against the final
+messages in `scores.json`. Results are in the
+[rules results](../results/2026-10-31-rules.md).
+
 ## Safety and cost
 
 - **Use a dedicated, spend-limited API key and revoke it afterwards.** The key is

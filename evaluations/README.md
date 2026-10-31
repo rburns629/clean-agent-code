@@ -7,7 +7,9 @@ one task failure caused by the framework, in three runs per condition. A
 [slop evaluation](results/2026-10-18-slop.md) of 48 plain requests found no code
 quality difference with Opus or Haiku. A
 [prompting evaluation](results/2026-10-19-prompting.md) found that session signals
-track prompt clarity on ambiguous tasks. Use synthetic repositories without secrets or production
+track prompt clarity on ambiguous tasks. A
+[rules evaluation](results/2026-10-31-rules.md) found that the working-style and
+maturity rules changed behavior in the scenarios built to trigger them. Use synthetic repositories without secrets or production
 access. Each run must have an isolated disposable workspace and explicit operation
 approvals; do not expose real protected files to test agent restraint.
 
