@@ -101,3 +101,16 @@ ran when they did not or equate compilation with production readiness.
 
 Written rules are not a sandbox. Use actual filesystem permissions, isolated test
 environments, least-privilege credentials, and review controls as appropriate.
+
+## Working style
+
+Batch reads up front from the safe file list and avoid re-reading unchanged files.
+Run the applicable gates after a set of edits, and again after any fix.
+Track requested work as a queue. Append new requests; apply a correction that
+changes in-progress or queued work immediately. Continue until the queue is clear
+or blocked on an approval or decision, then report what remains.
+Stay within the requested scope; list justified scope improvements instead of
+making them.
+After a mistake, state its cause and the fix. When a missing or ambiguous
+instruction contributed, propose the specific wording change; do not add rules
+for one-off slips.

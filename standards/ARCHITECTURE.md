@@ -17,6 +17,10 @@ authorization, error handling callers rely on, or tests covering the change. Whe
 the shortest version would weaken one of these, keep the control and simplify
 elsewhere. When a requirement forces complexity, name the requirement.
 
+Scale engineering depth to the project maturity recorded in project context: a
+prototype warrants less test depth, error handling, and documentation than a
+production service. Maturity never relaxes the security controls above.
+
 ## Design boundaries
 
 Separate concerns into cohesive modules with explicit ownership and domain boundaries.

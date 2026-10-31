@@ -9,6 +9,7 @@ Record the completed context's location in the project's agent instructions.
 | Area | Project facts, safe references, owners, or commands |
 | --- | --- |
 | Project purpose | Users, outcomes, and scope |
+| Project maturity | Prototype, internal tool, or production; expected depth of tests, error handling, documentation, and operations |
 | Languages | Versions and supported language features |
 | Frameworks | Versions and existing patterns |
 | Runtime environment | OS, runtime, resource constraints |

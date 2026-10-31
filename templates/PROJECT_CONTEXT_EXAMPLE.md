@@ -10,7 +10,8 @@ Replace them with observed facts when using the [template](PROJECT_CONTEXT.md).
 An internal task tracker lets team members manage tasks within their organization.
 The web team owns a TypeScript/React frontend in `web/`; the API team owns a
 Python/FastAPI service in `api/`. Platform maintainers own Terraform in `infra/`.
-The service runs in Linux containers with PostgreSQL on AWS. Runtime and tool
+It is an internal production service: changes need tests, structured errors, and
+operational review. The service runs in Linux containers with PostgreSQL on AWS. Runtime and tool
 versions are pinned in the consuming project's reviewed manifests and CI.
 
 The API owns domain rules and persistence. The frontend calls its HTTP contract;
